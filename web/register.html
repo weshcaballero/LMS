@@ -6,17 +6,47 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-    <title>Reister | E-Learning System</title>
+    <title>Register | E-Learning System</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <main class="auth-frame">
-        <form class="auth-card">
+        <form class="auth-card" action="RegisterServlet" method="post">
             <div class="auth-brand">
                 <img src="./images/Digitalarts.png" alt="dattc" class="auth-logo">
                 <h1 class="h-title">Digital Arts Technology Training Center Inc.</h1>
             </div>
+
+            <div class="name-row">
+                <div class="field">
+                    <label for="first-name">First Name</label>
+                    <input id="first-name" name="first_name" type="text" autocomplete="given-name" required>
+                </div>
+
+                <div class="field">
+                    <label for="last-name">Last Name</label>
+                    <input id="last-name" name="last_name" type="text" autocomplete="family-name" required>
+                </div>
+            </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" autocomplete="email" required>
+
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="new-password" required>
+                    <p class="hint" id="password-hint">Use at least 8 characters with a mix of letters, numbers, and symbols.</p>
+                </div>
+
+                <label class="terms" for="terms">
+                    <input id="terms" name="terms" type="checkbox" required>
+                    <span>I agree to the <a href="#terms">Terms of Service</a> and <a href="#privacy">Privacy Policy</a>.</span>
+                </label>
+
+                <button type="submit">Create Account</button>
+
+                <p class="signin">Already have an account? <a href="login.html">Sign in</a></p>
         </form>
     </main>
 </body>
