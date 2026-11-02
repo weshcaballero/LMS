@@ -21,30 +21,32 @@
             <div class="name-row">
                 <div class="field">
                     <label for="first-name">First Name</label>
-                    <input id="first-name" name="first_name" type="text" autocomplete="given-name" required>
+                    <input id="first-name" name="first_name" class="i-input" type="text" autocomplete="given-name" required>
                 </div>
 
                 <div class="field">
-                    <label for="last-name">Last Name</label>
-                    <input id="last-name" name="last_name" type="text" autocomplete="family-name" required>
+                    <label for="last-name" class="l-label">Last Name</label>
+                    <input id="last-name" name="last_name" class="i-input" type="text" autocomplete="family-name" required>
                 </div>
             </div>
 
                 <div class="field">
-                    <label for="email">Email</label>
-                    <input id="email" name="email" type="email" autocomplete="email" required>
+                    <label for="email" class="l-label">Email</label>
+                    <input id="email" name="email" class="i-input" type="email" autocomplete="email" required>
 
-                    <label for="password">Password</label>
-                    <input id="password" name="password" type="password" autocomplete="new-password" required>
+                    <label for="password" class="l-label">Password</label>
+                    <input id="password" name="password" class="i-input" type="password" autocomplete="new-password" required>
                     <p class="hint" id="password-hint">Use at least 8 characters with a mix of letters, numbers, and symbols.</p>
                 </div>
 
                 <label class="terms" for="terms">
-                    <input id="terms" name="terms" type="checkbox" required>
+                    <input id="terms" name="terms" class="i-input" type="checkbox" required>
                     <span>I agree to the <a href="#terms">Terms</a> and <a href="#privacy">Conditions</a>.</span>
                 </label>
 
-                <button type="submit">Create Account</button>
+                <div class="s-register">
+                    <button type="submit">Create Account</button>
+                </div>
 
                 <p class="signin">Already have an account? <a href="login.html">Sign in</a></p>
         </form>
