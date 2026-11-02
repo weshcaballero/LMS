@@ -665,6 +665,7 @@ body.auth-page {
   background: #dfe4ec;
   border-radius: 14px;
   overflow: hidden;
+  flex-direction: column;
 }
 
 /* The photo, washed out with white and slightly blurred (the "glass" look).
@@ -718,7 +719,7 @@ body.auth-page {
   line-height: 1.2;
   color: var(--navy);
 }
- 
+
 .auth-card label {
   display: block;
   margin-bottom: 3px;
@@ -811,7 +812,7 @@ body.auth-page {
     font-size: 0.9rem;
   }
 }
-
+/*===============================================*/
 .field {
   margin-bottom: 17px;
 }
@@ -845,7 +846,7 @@ label {
   width: 15px;
   height: 15px;
   flex: 0 0 15px;
-  margin: 2px 10px 0;
+  margin: 2px 1px 0;
   accent-color: var(--navy);
 }
 
@@ -854,7 +855,7 @@ input {
   height: 47px;
   position: relative;
   top: 3px;
-  left: 7px;
+  left: 0;
   padding: 0 13px;
   border: 1px solid #dfe4ef;
   border-radius: 9px;
@@ -880,12 +881,10 @@ input:focus {
   color: var(--muted); 
   font-size: 11px; 
 }
-.terms a {
-  color: var(--navy);
-  text-decoration: none;
-  font-weight: 600;
+.terms span {
+  font-size: 12px;
+  font-weight: 400;
 }
-
 .terms a:hover {
   text-decoration: underline;
 }
@@ -920,3 +919,5 @@ button:focus-visible {
   text-align: center; 
   font-size: 13px; 
 }
+
+.footnote { margin: 20px 0 0; color: #4a4d55; text-align: center; font-size: 11px; }
