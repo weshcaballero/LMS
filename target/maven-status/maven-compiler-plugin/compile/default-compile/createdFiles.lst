@@ -1,0 +1,5 @@
+com\app\servlet\LoginServlet.class
+com\app\config\DBConnection.class
+com\app\servlet\RegisterServlet.class
+com\app\servlet\UserInfoServlet.class
+com\app\servlet\DBTestServlet.class

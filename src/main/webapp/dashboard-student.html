@@ -22,7 +22,7 @@
             </a>
 
             <nav class="topnav" aria-label="Main">
-                <a href="home-student.html">Home</a>
+                <a href="home.html">Home</a>
                 <a href="dashboard-student.html">Dashboard</a>
                 <a href="#">My Courses</a>
             </nav>
@@ -34,7 +34,7 @@
                     <span class="bell-dot"></span>
                 </button>
 
-                <a href="profile.html" class="avatar" aria-label="My profile">PS</a>
+                <a href="profile.html" class="avatar" id="userAvatar">ST</a>
                 <a href="LogoutServlet" class="logout-link">Log out</a>
             </div>
         </header>
@@ -42,7 +42,7 @@
         <main class="content dash">
 
             <div class="dash-head">
-                <h1>Patricia Seismundo</h1>
+                <h1 id="userName">Student Name</h1>
                 <p>You're enrolled in the Programming (Java) track.</p>
             </div>
 
@@ -159,5 +159,6 @@
     </div>
 
     <script src="js/portal.js" defer></script>
+    <script src="js/user-info.js" defer></script>
 </body>
 </html>

@@ -1,13 +1,3 @@
-/* ==========================================================
-   portal.js: behavior shared by the student pages
-   Used by: home.html, student-dashboard.html
-   - notification bell and account menu
-   - three-dot menus (Mark as done, Copy meeting link)
-   - JOIN button
-   - New announcement window
-   Everything here only changes the page. Saving to MySQL
-   will be added later with fetch() calls to your servlets.
-   ========================================================== */
 (function () {
   'use strict';
 

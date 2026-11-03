@@ -1,7 +1,4 @@
-/* ==========================================================
-   login.js: checks the login form before it is sent
-   Used by: login.html
-   ========================================================== */
+
 (function () {
   'use strict';
 
@@ -9,7 +6,7 @@
   // It does NOT check a real password. Anyone can change JavaScript in their browser,
   // so the real login check must always happen in LoginServlet (Java + MySQL).
   // When LoginServlet is ready, set this to false.
-  var DEMO_MODE = true;
+  var DEMO_MODE = false;
   var AFTER_LOGIN_PAGE = 'home.html';
 
   var form = document.querySelector('.auth-card');
@@ -43,8 +40,8 @@
     button.textContent = buttonText;
   }
 
-  // When the servlet rejects a login, it can send the user back to login.html?error=1
-  if (new URLSearchParams(window.location.search).get('error') === '1') {
+  // When the servlet rejects a login, it can send the user back to login.html?error=invalid
+  if (new URLSearchParams(window.location.search).get('error') === 'invalid') {
     showError('Email or password is incorrect. Try again.');
   }
 

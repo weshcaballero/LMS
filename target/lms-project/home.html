@@ -18,7 +18,7 @@
             </a>
 
             <nav class="topnav" aria-label="Main">
-                <a href="home-student.html">Home</a>
+                <a href="home.html">Home</a>
                 <a href="dashboard-student.html">Dashboard</a>
                 <a href="#">My Courses</a>
             </nav>
@@ -30,14 +30,14 @@
                     <span class="bell-dot"></span>
                 </button>
 
-                <a href="profile.html" class="avatar" aria-label="My profile">PS</a>
+                <a href="profile.html" class="avatar" id="userAvatar">ST</a>
                 <a href="LogoutServlet" class="logout-link">Log out</a>
             </div>
         </header>
 
         <main class="content">
             <h1 class="greeting">
-                Hi, Patricia Seismundo!
+                Hi, <span id="userName">Student</span>!
             </h1>
 
             <section class="panel">
@@ -79,5 +79,6 @@
     </div>
 
     <script src="js/portal.js" defer></script>
+    <script src="js/user-info.js" defer></script>
 </body>
 </html>
