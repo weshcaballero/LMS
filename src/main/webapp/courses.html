@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>My Courses | E-Learning System</title>
+</head>
+<body>
+    <div class="app">
+
+        <header class="topbar">
+            <a href="home.html" class="brand">
+                <img src="./images/Digitalarts.png" alt="Digital Arts Image">
+                <div class="brand-text">
+                    <span class="brand-name">Digital Arts Technology Training Center Inc.</span>
+                    <span class="brand-sub">E-Learning System</span>
+                </div>
+            </a>
+
+            <nav class="topnav" aria-label="Main">
+                <a href="home.html">Home</a>
+                <a href="dashboard-student.html">Dashboard</a>
+                <a href="courses.html">My Courses</a>
+            </nav>
+
+            <div class="topbar-actions">
+                <button type="button" class="bell" aria-label="Notifications">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/>
+                    </svg>
+                    <span class="bell-dot"></span>
+                </button>
+
+                <a href="profile.html" class="avatar" id="userAvatar">ST</a>
+                <a href="LogoutServlet" class="logout-link">Log out</a>
+            </div>
+        </header>
+
+        <main class="courses">
+
+            <form class="course-search" id="courseSearch" role="search">
+                <label for="courseQuery" class="sr-only">Search courses</label>
+                <input type="search" id="courseQuery" placeholder="Search..." autocomplete="off">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+            </form>
+
+            <div class="course-list">
+
+                <article class="my-course">
+                    <div class="my-course-head">
+                        <h2 class="my-course-title"><a href="dashboard-student.html" class="my-course-link">Programming (JAVA) NCIII</a></h2>
+                        <p class="my-course-batch">Batch 2</p>
+                        <p class="my-course-teacher">Romero Dela Cruz Vicente</p>
+                    </div>
+                    <span class="my-course-avatar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span>
+                    <div class="my-course-body"></div>
+                    <div class="my-course-foot">
+                        <div class="pop-wrap">
+                            <button type="button" class="dots" aria-label="More options" aria-haspopup="menu" aria-expanded="false" data-menu><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg></button>
+                            <div class="pop-menu" role="menu" hidden>
+                                <a href="dashboard-student.html" role="menuitem">Open course</a>
+                                <button type="button" role="menuitem" data-action="copy-course" data-url="dashboard-student.html">Copy course link</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <a href="#" class="add-course" aria-label="Add a course" title="Add a course"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></a>
+            </div>
+
+            <p class="no-results" id="noResults" hidden>No courses match your search.</p>
+        </main>
+    </div>
+
+    <script src="js/portal.js" defer></script>
+    <script src="js/my-courses.js" defer></script>
+</body>
+</html>

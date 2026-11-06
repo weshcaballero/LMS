@@ -922,3 +922,294 @@ body.auth-page {
   text-align: center; 
   font-size: 11px; 
 }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+ 
+.courses {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 63px 0 64px;
+}
+ 
+/* ---------- Search bar ---------- */
+ 
+.course-search {
+  position: relative;
+  margin: 0 24px;
+}
+ 
+.course-search input {
+  width: 100%;
+  height: 39px;
+  padding: 0 52px 0 31px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: #fcf5f4;
+  border: 1px solid #6b6b6b;
+  border-radius: 999px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+ 
+.course-search input::placeholder {
+  color: #777777;
+}
+ 
+.course-search input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+ 
+.course-search input:focus {
+  outline: 3px solid rgba(31, 74, 143, 0.35);
+  outline-offset: 1px;
+}
+ 
+.course-search svg {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  transform: translateY(-50%);
+  fill: none;
+  stroke: #444444;
+  stroke-width: 2;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+ 
+/* ---------- Course cards ---------- */
+ 
+.course-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 17px;
+  margin-top: 66px;
+}
+ 
+.my-course {
+  position: relative;
+  width: 246px;
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  background: #f2eeed;
+  border: 1px solid #cdc7c7;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.my-course-head {
+  min-height: 78px;
+  padding: 16px 22px 14px;
+  color: var(--white);
+  background: var(--navy);
+  border-radius: 11px 11px 0 0;
+}
+
+.my-course-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.my-course-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The whole card is clickable: this invisible layer covers it */
+.my-course-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+}
+
+.my-course-link:focus-visible {
+  outline: none;
+}
+
+.my-course-link:focus-visible::after {
+  outline: 3px solid rgba(36, 87, 197, 0.6);
+  outline-offset: 2px;
+}
+
+.my-course-batch {
+  margin: 6px 0 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.my-course-teacher {
+  margin: 2px 0 0;
+  font-size: 0.68rem;
+}
+
+.my-course-avatar {
+  position: absolute;
+  top: 51px;
+  right: 10px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #4a4a4a;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.my-course-avatar svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: #151515;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.my-course-body {
+  flex: 1;
+}
+
+.my-course-foot {
+  position: relative;
+  z-index: 2;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  border-top: 1px solid #d6d0d0;
+}
+
+.add-course {
+  width: 46px;
+  height: 41px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #444444;
+  background: #f2eeed;
+  border: 1px solid #c9c3c3;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.add-course svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.add-course:hover {
+  background: #e9e4e3;
+}
+
+.add-course:focus-visible {
+  outline: 3px solid rgba(36, 87, 197, 0.45);
+  outline-offset: 2px;
+}
+
+.no-results {
+  margin: 28px 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.pop-wrap {
+  position: relative;
+}
+
+.dots {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: #666;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dots:hover {
+  background: #e5e0df;
+}
+
+.dots svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.pop-menu:not([hidden]) {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 6px);
+  z-index: 5;
+  display: grid;
+  min-width: 170px;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 16%);
+}
+
+.pop-menu a,
+.pop-menu button {
+  display: block;
+  width: 100%;
+  padding: 9px 10px;
+  color: #222;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pop-menu a:hover,
+.pop-menu button:hover {
+  background: #f1f3f6;
+}
+
+.my-course-link::after {
+  inset: 0 0 37px;
+}
+
+@media (max-width: 760px) {
+  .courses {
+    padding: 32px 16px 48px;
+  }
+
+  .course-search {
+    margin: 0;
+  }
+
+  .course-list {
+    margin-top: 32px;
+  }
+}
