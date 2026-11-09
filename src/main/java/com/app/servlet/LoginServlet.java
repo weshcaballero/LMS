@@ -86,7 +86,7 @@ public class LoginServlet extends HttpServlet {
 
                             default:
                                 response.sendRedirect(
-                                        "home-student.html");
+                                        "home.html");
                                 break;
                         }
 

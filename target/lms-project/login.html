@@ -38,5 +38,27 @@
     </main>
 
     <script src="js/login.js" defer></script>
+
+    <script>
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("passwordReset") === "success") {
+        const message = document.createElement("p");
+
+        message.textContent =
+            "Your password has been successfully updated. Please log in.";
+
+        message.setAttribute("role", "status");
+        message.style.color = "green";
+        message.style.textAlign = "center";
+        message.style.margin = "12px 0";
+
+        const form = document.querySelector(".auth-card");
+
+        if (form) {
+            form.prepend(message);
+        }
+    }
+</script>
 </body>
 </html>
