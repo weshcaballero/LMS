@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         const response = await fetch("UserInfoServlet");
 
         if (!response.ok) {
-            throw new Error("Unable to get user information. Status: " + response.status);
+            throw new Error(
+                "Unable to get user information. Status: " + response.status
+            );
         }
 
         const user = await response.json();
@@ -23,18 +25,35 @@ document.addEventListener("DOMContentLoaded", async function () {
             greeting.textContent = "Hi, " + user.userName + "!";
         }
 
-        // Update avatar initials
+        // Generate avatar initials
+        const initials = user.userName
+            .trim()
+            .split(/\s+/)
+            .map(name => name.charAt(0))
+            .slice(0, 2)
+            .join("");
+
+        // Update avatar
         const avatar = document.getElementById("userAvatar");
 
         if (avatar) {
-            const initials = user.userName
-                .trim()
-                .split(/\s+/)
-                .map(name => name.charAt(0))
-                .slice(0, 2)
-                .join("");
-
             avatar.textContent = initials;
+        }
+
+        // Update profile dropdown name
+        const dropdownName =
+            document.getElementById("dropdownUserName");
+
+        if (dropdownName) {
+            dropdownName.textContent = user.userName;
+        }
+
+        // Update profile dropdown email
+        const dropdownEmail =
+            document.getElementById("dropdownUserEmail");
+
+        if (dropdownEmail) {
+            dropdownEmail.textContent = user.email;
         }
 
     } catch (error) {

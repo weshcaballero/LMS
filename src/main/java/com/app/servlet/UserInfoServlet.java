@@ -32,10 +32,18 @@ public class UserInfoServlet extends HttpServlet {
         }
 
         String userName = (String) session.getAttribute("userName");
+        String email = (String) session.getAttribute("userEmail");
 
-        String json = "{\"userName\":\"" +
+        String safeName = userName == null ? "" :
                 userName.replace("\\", "\\\\")
-                        .replace("\"", "\\\"") + "\"}";
+                        .replace("\"", "\\\"");
+
+        String safeEmail = email == null ? "" :
+                email.replace("\\", "\\\\")
+                        .replace("\"", "\\\"");
+
+        String json = "{\"userName\":\"" + safeName +
+                "\",\"email\":\"" + safeEmail + "\"}";
 
         response.getWriter().write(json);
     }

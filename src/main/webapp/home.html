@@ -17,23 +17,48 @@
                 </div>
             </a>
 
-            <nav class="topnav" aria-label="Main">
-                <a href="home.html">Home</a>
-                <a href="dashboard-student.html">Dashboard</a>
-                <a href="courses.html">My Courses</a>
-            </nav>
+    <nav class="topnav" aria-label="Main">
+        <a href="home.html">Home</a>
+        <a href="dashboard-student.html">Dashboard</a>
+        <a href="courses.html">My Courses</a>
+    </nav>
 
-            <div class="topbar-actions">
-                <button type="button" class="bell" aria-label="Notifications">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/>
-                    </svg>
-                    <span class="bell-dot"></span>
-                </button>
+    <div class="topbar-actions">
+        <button type="button" class="bell" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/>
+            </svg>
+            <span class="bell-dot"></span>
+        </button>
 
-                <a href="profile.html" class="avatar" id="userAvatar">ST</a>
-                <a href="LogoutServlet" class="logout-link">Log out</a>
+        <div class="profile-dropdown" id="profileDropdown">
+            <button type="button"
+                    class="avatar"
+                    id="userAvatar"
+                    aria-label="Open profile menu"
+                    aria-expanded="false">
+                ST
+            </button>
+
+            <div class="profile-menu" id="profileMenu">
+                <div class="profile-menu-info">
+                    <strong id="dropdownUserName">Student Name</strong>
+                    <span id="dropdownUserEmail">student@email.com</span>
+                </div>
+
+                <div class="profile-menu-divider"></div>
+
+                <a href="profile.html">
+                    <span>My Profile</span>
+                </a>
+
+                <a href="LogoutServlet" class="dropdown-logout">
+                    <span>Log out</span>
+                </a>
             </div>
-        </header>
+        </div>
+    </div>
+</header>
 
         <main class="content">
             <h1 class="greeting">
@@ -80,5 +105,6 @@
 
     <script src="js/portal.js" defer></script>
     <script src="js/user-info.js" defer></script>
+    <script src="js/profile-dropdown.js"></script>
 </body>
 </html>

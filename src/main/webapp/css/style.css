@@ -1200,6 +1200,51 @@ body.auth-page {
   inset: 0 0 37px;
 }
 
+
+/* My Courses Card Content Adjustment */
+
+.my-course {
+    min-height: 210px;
+    overflow: visible;
+}
+
+.my-course-head {
+    padding-right: 75px;
+    min-height: 90px;
+}
+
+.my-course-title {
+    overflow-wrap: break-word;
+}
+
+.my-course-batch {
+    margin-top: 8px;
+}
+
+.my-course-body {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.my-course-body p {
+    margin: 0;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+}
+
+.my-course-body p:last-child {
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.my-course-foot {
+    flex-shrink: 0;
+}
+
+
 @media (max-width: 760px) {
   .courses {
     padding: 32px 16px 48px;
@@ -1212,4 +1257,79 @@ body.auth-page {
   .course-list {
     margin-top: 32px;
   }
+}
+
+
+/* Profile Dropdown */
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-dropdown .avatar {
+    cursor: pointer;
+    border: none;
+}
+
+.profile-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 230px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.profile-menu.show {
+    display: block;
+}
+
+.profile-menu-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+}
+
+.profile-menu-info strong {
+    color: #1f2937;
+    font-size: 14px;
+}
+
+.profile-menu-info span {
+    color: #6b7280;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.profile-menu-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 5px 0;
+}
+
+.profile-menu a {
+    display: block;
+    padding: 11px 10px;
+    color: #374151;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.profile-menu a:hover {
+    background: #f3f4f6;
+}
+
+.profile-menu .dropdown-logout {
+    color: #dc2626;
+}
+
+.forgot-title {
+    font-size: 2rem;
+    font-weight: 600;
 }
