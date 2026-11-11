@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const addCourse = courseList.querySelector(".add-course");
 
+    // Search and filter courses
     function filterCourses() {
         const query = searchInput?.value.trim().toLowerCase() || "";
         const cards = courseList.querySelectorAll(".my-course");
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     searchInput?.addEventListener("input", filterCourses);
 
+    // Close all open course menus
     function closeMenus(except = null) {
         document.querySelectorAll("[data-menu][aria-expanded='true']").forEach(button => {
             const wrap = button.closest(".pop-wrap");
@@ -43,6 +45,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     try {
+        // Load enrolled courses
         const response = await fetch("MyCoursesServlet", {
             credentials: "same-origin"
         });
@@ -63,109 +66,109 @@ document.addEventListener("DOMContentLoaded", async function () {
             courseList.insertBefore(emptyMessage, addCourse);
 
             if (noResults) noResults.hidden = true;
-            return;
-        }
 
-        courses.forEach(course => {
-            const card = document.createElement("article");
-            card.className = "my-course";
+        } else {
+            courses.forEach(course => {
+                const card = document.createElement("article");
+                card.className = "my-course";
 
-            // Course header
-            const head = document.createElement("div");
-            head.className = "my-course-head";
+                // Course header
+                const head = document.createElement("div");
+                head.className = "my-course-head";
 
-            const courseLink = document.createElement("a");
-            courseLink.className = "my-course-link";
-            courseLink.href = "#";
+                const courseLink = document.createElement("a");
+                courseLink.className = "my-course-link";
+                courseLink.href = "#";
 
-            courseLink.addEventListener("click", event => {
-                event.preventDefault();
+                courseLink.addEventListener("click", event => {
+                    event.preventDefault();
+                });
+
+                const title = document.createElement("h3");
+                title.className = "my-course-title";
+                title.textContent = course.courseTitle || "Untitled Course";
+
+                const batch = document.createElement("p");
+                batch.className = "my-course-batch";
+                batch.textContent = course.courseCode || "No course code";
+
+                courseLink.append(title, batch);
+                head.appendChild(courseLink);
+
+                // Course avatar
+                const avatar = document.createElement("div");
+                avatar.className = "my-course-avatar";
+
+                avatar.innerHTML = `
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 3 2.5 8 12 13l9.5-5L12 3z"/>
+                        <path d="M6 10v5c3.5 3 8.5 3 12 0v-5"/>
+                        <path d="M21.5 8v7"/>
+                    </svg>
+                `;
+
+                head.appendChild(avatar);
+
+                // Course body
+                const body = document.createElement("div");
+                body.className = "my-course-body";
+
+                const description = document.createElement("p");
+                description.textContent =
+                    course.description || "No course description available.";
+
+                const status = document.createElement("p");
+                status.textContent = "Status: " + (course.status || "Active");
+
+                body.append(description, status);
+
+                // Course footer
+                const foot = document.createElement("div");
+                foot.className = "my-course-foot";
+
+                const popWrap = document.createElement("div");
+                popWrap.className = "pop-wrap";
+
+                const menuButton = document.createElement("button");
+                menuButton.type = "button";
+                menuButton.className = "dots";
+                menuButton.setAttribute("data-menu", "");
+                menuButton.setAttribute("aria-expanded", "false");
+                menuButton.setAttribute("aria-label", "Course options");
+
+                menuButton.innerHTML = `
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="5" cy="12" r="1.5"/>
+                        <circle cx="12" cy="12" r="1.5"/>
+                        <circle cx="19" cy="12" r="1.5"/>
+                    </svg>
+                `;
+
+                const menu = document.createElement("div");
+                menu.className = "pop-menu";
+                menu.setAttribute("hidden", "");
+
+                const copyButton = document.createElement("button");
+                copyButton.type = "button";
+                copyButton.textContent = "Copy course link";
+                copyButton.setAttribute("data-action", "copy-course");
+
+                copyButton.dataset.url =
+                    window.location.href.split("?")[0] +
+                    "?courseId=" + encodeURIComponent(course.courseId);
+
+                menu.appendChild(copyButton);
+                popWrap.append(menuButton, menu);
+                foot.appendChild(popWrap);
+
+                // Assemble course card
+                card.append(head, body, foot);
+
+                courseList.insertBefore(card, addCourse);
             });
 
-            const title = document.createElement("h3");
-            title.className = "my-course-title";
-            title.textContent = course.courseTitle || "Untitled Course";
-
-            const batch = document.createElement("p");
-            batch.className = "my-course-batch";
-            batch.textContent = course.courseCode || "No course code";
-
-            courseLink.append(title, batch);
-            head.appendChild(courseLink);
-
-            // Course avatar
-            const avatar = document.createElement("div");
-            avatar.className = "my-course-avatar";
-
-            avatar.innerHTML = `
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 3 2.5 8 12 13l9.5-5L12 3z"/>
-                    <path d="M6 10v5c3.5 3 8.5 3 12 0v-5"/>
-                    <path d="M21.5 8v7"/>
-                </svg>
-            `;
-
-            head.appendChild(avatar);
-
-            // Course body
-            const body = document.createElement("div");
-            body.className = "my-course-body";
-
-            const description = document.createElement("p");
-            description.textContent =
-                course.description || "No course description available.";
-
-            const status = document.createElement("p");
-            status.textContent = "Status: " + (course.status || "Active");
-
-            body.append(description, status);
-
-            // Course footer
-            const foot = document.createElement("div");
-            foot.className = "my-course-foot";
-
-            const popWrap = document.createElement("div");
-            popWrap.className = "pop-wrap";
-
-            const menuButton = document.createElement("button");
-            menuButton.type = "button";
-            menuButton.className = "dots";
-            menuButton.setAttribute("data-menu", "");
-            menuButton.setAttribute("aria-expanded", "false");
-            menuButton.setAttribute("aria-label", "Course options");
-
-            menuButton.innerHTML = `
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="5" cy="12" r="1.5"/>
-                    <circle cx="12" cy="12" r="1.5"/>
-                    <circle cx="19" cy="12" r="1.5"/>
-                </svg>
-            `;
-
-            const menu = document.createElement("div");
-            menu.className = "pop-menu";
-            menu.setAttribute("hidden", "");
-
-            const copyButton = document.createElement("button");
-            copyButton.type = "button";
-            copyButton.textContent = "Copy course link";
-            copyButton.setAttribute("data-action", "copy-course");
-
-            copyButton.dataset.url =
-                window.location.href.split("?")[0] +
-                "?courseId=" + encodeURIComponent(course.courseId);
-
-            menu.appendChild(copyButton);
-            popWrap.append(menuButton, menu);
-            foot.appendChild(popWrap);
-
-            // Assemble card
-            card.append(head, body, foot);
-
-            courseList.insertBefore(card, addCourse);
-        });
-
-        filterCourses();
+            filterCourses();
+        }
 
     } catch (error) {
         console.error("My Courses Error:", error);
@@ -237,7 +240,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     });
 
-    addCourse?.addEventListener("click", function (event) {
-        event.preventDefault();
-    });
+    // IMPORTANT:
+    // Do not prevent the default action of the Add Course link.
+    // It should navigate to available-courses.html.
 });

@@ -998,33 +998,6 @@ body.auth-page {
   gap: 17px;
   margin-top: 66px;
 }
- 
-.my-course {
-  position: relative;
-  width: 246px;
-  min-height: 190px;
-  display: flex;
-  flex-direction: column;
-  background: #f2eeed;
-  border: 1px solid #cdc7c7;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-}
-
-.my-course-head {
-  min-height: 78px;
-  padding: 16px 22px 14px;
-  color: var(--white);
-  background: var(--navy);
-  border-radius: 11px 11px 0 0;
-}
-
-.my-course-title {
-  margin: 0;
-  font-size: 0.95rem;
-  font-weight: 500;
-  line-height: 1.25;
-}
 
 .my-course-link {
   color: inherit;
@@ -1082,21 +1055,59 @@ body.auth-page {
   stroke-linecap: round;
 }
 
-.my-course-body {
-  flex: 1;
+
+#availableCourseList .my-course {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    min-height: 260px;
+    height: auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: #f2eeed;
+    border: 1px solid #cdc7c7;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
 }
 
-.my-course-foot {
-  position: relative;
-  z-index: 2;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 12px;
-  border-top: 1px solid #d6d0d0;
+#availableCourseList .my-course-head {
+    min-height: 90px;
+    padding: 20px 65px 18px 22px;
+    box-sizing: border-box;
+    color: var(--white);
+    background: var(--navy);
+    border-radius: 11px 11px 0 0;
 }
 
+#availableCourseList .my-course-title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+#availableCourseList .my-course-body {
+    flex: 1;
+    padding: 22px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+#availableCourseList .my-course-foot {
+    position: relative;
+    z-index: 2;
+    min-height: 48px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 12px 18px;
+    box-sizing: border-box;
+    border-top: 1px solid #d6d0d0;
+}
 .add-course {
   width: 46px;
   height: 41px;
@@ -1332,4 +1343,225 @@ body.auth-page {
 .forgot-title {
     font-size: 2rem;
     font-weight: 600;
+}
+
+.reset-title {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+
+/* Notification Dropdown */
+.notification-dropdown {
+    position: relative;
+}
+
+.notification-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 340px;
+    max-width: calc(100vw - 32px);
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.notification-menu[hidden] {
+    display: none;
+}
+
+.notification-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.notification-header strong {
+    color: #1f2937;
+    font-size: 15px;
+}
+
+.notification-header button {
+    padding: 0;
+    color: var(--navy);
+    background: transparent;
+    border: 0;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.notification-list {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.notification-empty {
+    padding: 25px 15px;
+    color: #6b7280;
+    font-size: 13px;
+    text-align: center;
+}
+
+.notification-footer {
+    padding: 13px;
+    text-align: center;
+    border-top: 1px solid #e5e7eb;
+}
+
+.notification-footer a {
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.notification-footer a:hover {
+    text-decoration: underline;
+}
+
+.bell-dot {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+}
+
+
+/* Individual Notification Items */
+.notification-item {
+    display: flex;
+    width: 100%;
+    padding: 14px 16px;
+    text-align: left;
+    background: #fff;
+    border: 0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.notification-item:hover {
+    background: #f8fafc;
+}
+
+.notification-item.unread {
+    background: #f0f6ff;
+}
+
+.notification-item.unread:hover {
+    background: #e8f1ff;
+}
+
+.notification-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.notification-content strong {
+    color: #1f2937;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.notification-content p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.notification-date {
+    color: #9ca3af;
+    font-size: 10px;
+}
+
+.notification-item.unread .notification-content strong::after {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-left: 7px;
+    vertical-align: middle;
+    background: #2563eb;
+    border-radius: 50%;
+}
+
+.notification-header button:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .notification-menu {
+        position: fixed;
+        top: 75px;
+        right: 12px;
+        width: calc(100vw - 24px);
+        max-width: none;
+    }
+}
+
+
+
+#availableCourseList {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    align-items: stretch;
+    margin-top: 35px;
+    padding: 10px 8px 25px;
+}
+
+#availableCourseList .my-course {
+    width: 100%;
+    min-height: 230px;
+    height: auto;
+    padding: 22px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#availableCourseList .my-course-head {
+    margin-bottom: 18px;
+}
+
+#availableCourseList .my-course-title {
+    line-height: 1.4;
+    margin-bottom: 8px;
+    overflow-wrap: anywhere;
+}
+
+#availableCourseList .my-course-body {
+    flex: 1;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+#availableCourseList .my-course-foot {
+    margin-top: 12px;
+    padding-top: 15px;
+}
+
+@media (max-width: 900px) {
+    #availableCourseList {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+    }
+}
+
+@media (max-width: 600px) {
+    #availableCourseList {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
 }

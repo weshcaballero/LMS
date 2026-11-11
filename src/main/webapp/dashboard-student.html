@@ -29,12 +29,42 @@
     </nav>
 
     <div class="topbar-actions">
-        <button type="button" class="bell" aria-label="Notifications">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/>
-            </svg>
-            <span class="bell-dot"></span>
-        </button>
+        
+<div class="notification-dropdown" id="notificationDropdown">
+
+    <button type="button"
+            class="bell"
+            id="notificationBell"
+            aria-label="Notifications"
+            aria-expanded="false"
+            aria-controls="notificationMenu">
+
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/>
+        </svg>
+
+        <span class="bell-dot" id="notificationDot"></span>
+    </button>
+
+    <div class="notification-menu" id="notificationMenu" hidden>
+
+        <div class="notification-header">
+            <strong>Notifications</strong>
+            <button type="button" id="markAllRead">Mark all as read</button>
+        </div>
+
+        <div class="notification-list" id="notificationList">
+            <p class="notification-empty">Loading notifications...</p>
+        </div>
+
+        <div class="notification-footer">
+            <a href="notifications.html">View all notifications</a>
+        </div>
+
+    </div>
+
+</div>
+
 
         <div class="profile-dropdown" id="profileDropdown">
             <button type="button"
@@ -188,5 +218,6 @@
     <script src="js/portal.js" defer></script>
     <script src="js/profile-dropdown.js"></script>
     <script src="js/user-info.js" defer></script>
+    <script src="js/notification.js" defer></script>
 </body>
 </html>
