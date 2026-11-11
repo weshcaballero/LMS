@@ -1055,59 +1055,6 @@ body.auth-page {
   stroke-linecap: round;
 }
 
-
-#availableCourseList .my-course {
-    position: relative;
-    width: 100%;
-    min-width: 0;
-    min-height: 260px;
-    height: auto;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    background: #f2eeed;
-    border: 1px solid #cdc7c7;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-    overflow: hidden;
-}
-
-#availableCourseList .my-course-head {
-    min-height: 90px;
-    padding: 20px 65px 18px 22px;
-    box-sizing: border-box;
-    color: var(--white);
-    background: var(--navy);
-    border-radius: 11px 11px 0 0;
-}
-
-#availableCourseList .my-course-title {
-    margin: 0;
-    font-size: 0.95rem;
-    font-weight: 500;
-    line-height: 1.4;
-    overflow-wrap: anywhere;
-}
-
-#availableCourseList .my-course-body {
-    flex: 1;
-    padding: 22px;
-    line-height: 1.6;
-    overflow-wrap: anywhere;
-}
-
-#availableCourseList .my-course-foot {
-    position: relative;
-    z-index: 2;
-    min-height: 48px;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 12px 18px;
-    box-sizing: border-box;
-    border-top: 1px solid #d6d0d0;
-}
 .add-course {
   width: 46px;
   height: 41px;
@@ -1510,7 +1457,8 @@ body.auth-page {
 
 
 
-#availableCourseList {
+
+#courseList {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 28px;
@@ -1519,49 +1467,389 @@ body.auth-page {
     padding: 10px 8px 25px;
 }
 
-#availableCourseList .my-course {
+#courseList .my-course {
+    position: relative;
     width: 100%;
-    min-height: 230px;
+    min-width: 0;
+    min-height: 260px;
     height: auto;
-    padding: 22px;
-    box-sizing: border-box;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    background: #f2eeed;
+    border: 1px solid #cdc7c7;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
 }
 
-#availableCourseList .my-course-head {
-    margin-bottom: 18px;
+#courseList .my-course-head {
+    min-height: 90px;
+    padding: 20px 65px 18px 22px;
+    box-sizing: border-box;
+    color: var(--white);
+    background: var(--navy);
+    border-radius: 11px 11px 0 0;
 }
 
-#availableCourseList .my-course-title {
+#courseList .my-course-title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
     line-height: 1.4;
-    margin-bottom: 8px;
     overflow-wrap: anywhere;
 }
 
-#availableCourseList .my-course-body {
+#courseList .my-course-body {
     flex: 1;
-    margin-bottom: 20px;
+    padding: 22px;
     line-height: 1.6;
     overflow-wrap: anywhere;
 }
 
-#availableCourseList .my-course-foot {
-    margin-top: 12px;
-    padding-top: 15px;
+#courseList .my-course-foot {
+    position: relative;
+    z-index: 2;
+    min-height: 48px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 12px 18px;
+    box-sizing: border-box;
+    border-top: 1px solid #d6d0d0;
 }
 
+/* Enrollment Status */
+#courseList .course-availability {
+    font-size: 0.85rem;
+    color: #666;
+    margin-right: auto;
+}
+
+#courseList .course-availability.enrolled {
+    color: #218838;
+    font-weight: 600;
+}
+
+/* Course Status */
+#courseList .course-status {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #218838;
+}
+
+#courseList .course-status.inactive {
+    color: #888;
+}
+
+/* Enrollment Buttons */
+#courseList .enrollment-button {
+    min-width: 100px;
+    padding: 9px 16px;
+    border: none;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#courseList .enroll-button {
+    color: #fff;
+    background: #1d6b45;
+}
+
+#courseList .enroll-button:hover {
+    background: #155536;
+}
+
+#courseList .unenroll-button {
+    color: #fff;
+    background: #b94343;
+}
+
+#courseList .unenroll-button:hover {
+    background: #963333;
+}
+
+#courseList .enrollment-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#courseList .my-course.active-course {
+    cursor: pointer;
+}
+
+#courseList .my-course.active-course:hover {
+    transform: translateY(-3px);
+    transition: transform 0.2s ease;
+}
+
+#courseList .my-course.active-course:focus-visible {
+    outline: 3px solid #1d6b45;
+    outline-offset: 3px;
+}
+
+#courseList .my-course.inactive-course {
+    cursor: default;
+}
+
+/* Responsive Layout */
 @media (max-width: 900px) {
-    #availableCourseList {
+    #courseList {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 22px;
     }
 }
 
 @media (max-width: 600px) {
-    #availableCourseList {
+    #courseList {
         grid-template-columns: 1fr;
         gap: 18px;
     }
+}
+
+/* =====================================
+          MY COURSES PAGE
+===================================== */
+
+.courses {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 35px 30px 50px;
+    box-sizing: border-box;
+}
+
+/* Course cards container */
+.courses .course-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 28px;
+    width: 100%;
+    margin-top: 55px;
+    box-sizing: border-box;
+}
+
+/* Individual course card */
+.courses .my-course {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    min-height: 260px;
+    height: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    background: #f2eeed;
+    border: 1px solid #cdc7c7;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* Card header */
+.courses .my-course-head {
+    position: relative;
+    min-height: 95px;
+    padding: 20px 65px 18px 22px;
+    box-sizing: border-box;
+
+    color: var(--white);
+    background: var(--navy);
+    border-radius: 11px 11px 0 0;
+}
+
+/* Course title */
+.courses .my-course-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+/* Course link */
+.courses .my-course-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Course code / batch */
+.courses .my-course-batch {
+    margin: 8px 0 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* Teacher information */
+.courses .my-course-teacher {
+    margin: 5px 0 0;
+    font-size: 0.72rem;
+}
+
+/* Course avatar */
+.courses .my-course-avatar {
+    position: absolute;
+    top: 50px;
+    right: 12px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #4a4a4a;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.courses .my-course-avatar svg {
+    width: 25px;
+    height: 25px;
+}
+
+/* Card content */
+.courses .my-course-body {
+    flex: 1;
+    min-width: 0;
+    padding: 22px;
+    box-sizing: border-box;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* Card footer */
+.courses .my-course-foot {
+    position: relative;
+    min-height: 48px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 12px 18px;
+    box-sizing: border-box;
+
+    border-top: 1px solid #d6d0d0;
+}
+
+/* Add course card */
+.courses .add-course {
+    width: 55px;
+    min-height: 55px;
+    align-self: end;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+    border: 2px dashed #b9b9b9;
+    border-radius: 12px;
+    color: #555;
+    background: #fafafa;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.courses .add-course:hover {
+    background: #f0f0f0;
+    border-color: var(--navy);
+}
+
+.courses .add-course svg {
+    width: 30px;
+    height: 30px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+}
+
+/* Loading and empty messages */
+.courses #coursesLoading,
+.courses .empty-courses {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 25px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .courses .course-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .courses {
+        padding: 25px 16px 35px;
+    }
+
+    .courses .course-list {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 35px;
+    }
+}
+
+.course-status {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.course-status-link {
+    color: #218838;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.course-status-link:hover {
+    text-decoration: underline;
+}
+
+.course-status.inactive {
+    color: #888;
+}
+
+/* Clickable Active Course */
+.my-course.active-course {
+    cursor: pointer;
+}
+
+.my-course.active-course:hover {
+    transform: translateY(-3px);
+    transition: transform 0.2s ease;
+}
+
+.my-course.active-course:focus-visible {
+    outline: 3px solid #1d6b45;
+    outline-offset: 3px;
+}
+
+/* Inactive Course */
+.my-course.inactive-course {
+    cursor: default;
+}
+
+/* Course Status */
+.course-status {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #218838;
+}
+
+.course-status.inactive {
+    color: #888;
 }

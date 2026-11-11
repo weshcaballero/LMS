@@ -84,26 +84,89 @@ document.addEventListener("DOMContentLoaded", async function () {
             description.textContent =
                 course.description || "No course description available.";
 
-            const status = document.createElement("p");
-            status.textContent = "Available Course";
+            body.appendChild(description);
 
-            body.append(description, status);
-
-            // Enrollment status
+            // Enrollment footer
             const foot = document.createElement("div");
             foot.className = "my-course-foot";
 
             const label = document.createElement("span");
             label.className = "course-availability";
 
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "enrollment-button";
+
             if (course.enrolled === true) {
                 label.textContent = "Enrolled";
                 label.classList.add("enrolled");
+
+                button.textContent = "Unenroll";
+                button.classList.add("unenroll-button");
+                button.dataset.action = "unenroll";
             } else {
                 label.textContent = "Not yet enrolled";
+
+                button.textContent = "Enroll";
+                button.classList.add("enroll-button");
+                button.dataset.action = "enroll";
             }
 
-            foot.appendChild(label);
+            button.addEventListener("click", async function () {
+                const action = button.dataset.action;
+
+                if (action === "unenroll") {
+                    const confirmed = window.confirm(
+                        `Are you sure you want to unenroll from ${course.courseTitle}?`
+                    );
+
+                    if (!confirmed) return;
+                }
+
+                button.disabled = true;
+                button.textContent = "Please wait...";
+
+                try {
+                    const response = await fetch("EnrollmentServlet", {
+                        method: "POST",
+                        credentials: "same-origin",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: new URLSearchParams({
+                            courseId: course.courseId,
+                            action: action
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok || !result.success) {
+                        throw new Error(
+                            result.message || "Enrollment operation failed."
+                        );
+                    }
+
+                    // Update the current course status
+                    course.enrolled = action === "enroll";
+
+                    // Display updated button and status
+                    renderCourses();
+
+                    alert(result.message);
+
+                } catch (error) {
+                    console.error("Enrollment Error:", error);
+
+                    alert(error.message || "Something went wrong.");
+
+                    button.disabled = false;
+                    button.textContent =
+                        action === "enroll" ? "Enroll" : "Unenroll";
+                }
+            });
+
+            foot.append(label, button);
 
             card.append(head, body, foot);
             courseList.appendChild(card);

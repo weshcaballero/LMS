@@ -15,7 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateUnreadIndicator() {
         const hasUnread = notifications.some(item => !item.isRead);
+
         dot.hidden = !hasUnread;
+
+        if (markAllButton) {
+            markAllButton.hidden = !hasUnread;
+        }
     }
 
     function renderNotifications() {
@@ -26,10 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
             empty.className = "notification-empty";
             empty.textContent = "You're all caught up!";
             list.appendChild(empty);
+
         } else {
             notifications.forEach(item => {
-                const notification = document.createElement("button");
-                notification.type = "button";
+                const notification = document.createElement("div");
                 notification.className = "notification-item";
 
                 if (!item.isRead) {
@@ -59,14 +64,58 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         updateUnreadIndicator();
+    }
 
-        if (markAllButton) {
-            markAllButton.hidden =
-                !notifications.some(item => !item.isRead);
+    async function markNotificationsAsRead() {
+        const unreadNotifications = notifications.filter(
+            item => !item.isRead
+        );
+
+        if (unreadNotifications.length === 0) {
+            return true;
+        }
+
+        const formData = new URLSearchParams();
+
+        unreadNotifications.forEach(item => {
+            formData.append("notificationId", item.notificationId);
+        });
+
+        try {
+            const response = await fetch("MarkNotificationsReadServlet", {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: formData.toString()
+            });
+
+            if (!response.ok) {
+                throw new Error("Unable to mark notifications as read.");
+            }
+
+            const result = await response.json();
+
+            if (!result.success) {
+                throw new Error("Database update failed.");
+            }
+
+            unreadNotifications.forEach(item => {
+                item.isRead = true;
+            });
+
+            renderNotifications();
+
+            return true;
+
+        } catch (error) {
+            console.error("Mark as Read Error:", error);
+            return false;
         }
     }
 
-    async function loadNotifications() {
+    async function loadNotifications(markAsRead = false) {
         list.innerHTML =
             '<p class="notification-empty">Loading notifications...</p>';
 
@@ -76,11 +125,16 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to load notifications: " + response.status);
+                throw new Error("Failed to load notifications.");
             }
 
             notifications = await response.json();
+
             renderNotifications();
+
+            if (markAsRead) {
+                await markNotificationsAsRead();
+            }
 
         } catch (error) {
             console.error("Notification Error:", error);
@@ -93,7 +147,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function openMenu() {
         menu.hidden = false;
         bell.setAttribute("aria-expanded", "true");
-        loadNotifications();
+
+        loadNotifications(true);
     }
 
     function closeMenu() {
@@ -101,6 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
         bell.setAttribute("aria-expanded", "false");
     }
 
+    // Notification bell
     bell.addEventListener("click", function (event) {
         event.stopPropagation();
 
@@ -111,21 +167,30 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Close dropdown when clicking outside
     document.addEventListener("click", function (event) {
         if (!dropdown.contains(event.target)) {
             closeMenu();
         }
     });
 
+    // Close dropdown using Escape
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
             closeMenu();
         }
     });
 
+    // Mark all notifications as read
     markAllButton?.addEventListener("click", function () {
-        alert("Mark as read will be connected to the database next.");
+        markNotificationsAsRead();
     });
 
+    // Refresh notifications after successful enrollment
+    document.addEventListener("notifications:refresh", function () {
+        loadNotifications();
+    });
+
+    // Initial notification load
     loadNotifications();
 });

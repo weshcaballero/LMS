@@ -25,82 +25,92 @@
                 </div>
             </a>
 
-    <nav class="topnav" aria-label="Main">
-        <a href="home.html">Home</a>
-        <a href="dashboard-student.html">Dashboard</a>
-        <a href="courses.html">My Courses</a>
-    </nav>
+            <nav class="topnav" aria-label="Main">
+                <a href="home.html">Home</a>
+                <a href="dashboard-student.html">Dashboard</a>
+                <a href="courses.html">My Courses</a>
+            </nav>
 
-    <div class="topbar-actions">
-        
-<div class="notification-dropdown" id="notificationDropdown">
+            <div class="topbar-actions">
 
-    <button type="button"
-            class="bell"
-            id="notificationBell"
-            aria-label="Notifications"
-            aria-expanded="false"
-            aria-controls="notificationMenu">
+                <div class="notification-dropdown" id="notificationDropdown">
 
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/>
-        </svg>
+                    <button type="button"
+                            class="bell"
+                            id="notificationBell"
+                            aria-label="Notifications"
+                            aria-expanded="false"
+                            aria-controls="notificationMenu">
 
-        <span class="bell-dot" id="notificationDot"></span>
-    </button>
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/>
+                        </svg>
 
-    <div class="notification-menu" id="notificationMenu" hidden>
+                        <span class="bell-dot" id="notificationDot"></span>
+                    </button>
 
-        <div class="notification-header">
-            <strong>Notifications</strong>
-            <button type="button" id="markAllRead">Mark all as read</button>
-        </div>
+                    <div class="notification-menu" id="notificationMenu" hidden>
 
-        <div class="notification-list" id="notificationList">
-            <p class="notification-empty">Loading notifications...</p>
-        </div>
+                        <div class="notification-header">
+                            <strong>Notifications</strong>
+                            <button type="button" id="markAllRead">
+                                Mark all as read
+                            </button>
+                        </div>
 
-        <div class="notification-footer">
-            <a href="notifications.html">View all notifications</a>
-        </div>
+                        <div class="notification-list" id="notificationList">
+                            <p class="notification-empty">
+                                Loading notifications...
+                            </p>
+                        </div>
 
-    </div>
+                        <div class="notification-footer">
+                            <a href="notifications.html">View all notifications</a>
+                        </div>
 
-</div>
-
-        <div class="profile-dropdown" id="profileDropdown">
-            <button type="button"
-                    class="avatar"
-                    id="userAvatar"
-                    aria-label="Open profile menu"
-                    aria-expanded="false">
-                ST
-            </button>
-
-            <div class="profile-menu" id="profileMenu">
-                <div class="profile-menu-info">
-                    <strong id="dropdownUserName">Student Name</strong>
-                    <span id="dropdownUserEmail">student@email.com</span>
+                    </div>
                 </div>
 
-                <div class="profile-menu-divider"></div>
+                <div class="profile-dropdown" id="profileDropdown">
 
-                <a href="profile.html">
-                    <span>My Profile</span>
-                </a>
+                    <button type="button"
+                            class="avatar"
+                            id="userAvatar"
+                            aria-label="Open profile menu"
+                            aria-expanded="false">
+                        ST
+                    </button>
 
-                <a href="LogoutServlet" class="dropdown-logout">
-                    <span>Log out</span>
-                </a>
+                    <div class="profile-menu" id="profileMenu">
+
+                        <div class="profile-menu-info">
+                            <strong id="dropdownUserName">Student Name</strong>
+                            <span id="dropdownUserEmail">student@email.com</span>
+                        </div>
+
+                        <div class="profile-menu-divider"></div>
+
+                        <a href="profile.html">
+                            <span>My Profile</span>
+                        </a>
+
+                        <a href="LogoutServlet" class="dropdown-logout">
+                            <span>Log out</span>
+                        </a>
+
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </div>
-</header>
+        </header>
 
         <main class="courses">
 
             <form class="course-search" id="courseSearch" role="search">
-                <label for="courseQuery" class="sr-only">Search courses</label>
+
+                <label for="courseQuery" class="sr-only">
+                    Search courses
+                </label>
 
                 <input
                     type="search"
@@ -113,40 +123,32 @@
                     <circle cx="10.5" cy="10.5" r="6.5"/>
                     <path d="M15.5 15.5 21 21"/>
                 </svg>
+
             </form>
 
-            <!-- Dynamic courses from MyCoursesServlet -->
+            <!-- Dynamic courses -->
             <div class="course-list" id="courseList">
-
-                <p id="coursesLoading">Loading your courses...</p>
-
                 <!-- Course cards will be generated by my-courses.js -->
-
-                <a
-                    href="available-courses.html"
-                    class="add-course"
-                    aria-label="Add a course"
-                    title="Add a course"
-                >
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <circle cx="12" cy="12" r="9"/>
-                        <path d="M12 8v8M8 12h8"/>
-                    </svg>
-                </a>
-
             </div>
 
+            <!-- Loading message -->
+            <p id="coursesLoading" class="courses-loading">
+                Loading your courses...
+            </p>
+
+            <!-- No search results -->
             <p class="no-results" id="noResults" hidden>
                 No courses match your search.
             </p>
 
         </main>
+
     </div>
 
     <script src="js/portal.js" defer></script>
     <script src="js/my-courses.js" defer></script>
     <script src="js/user-info.js" defer></script>
-    <script src="js/profile-dropdown.js"></script>
+    <script src="js/profile-dropdown.js" defer></script>
     <script src="js/notification.js" defer></script>
 
 </body>
