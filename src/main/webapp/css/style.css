@@ -173,6 +173,7 @@ body {
     font-weight: 500;
 }
 
+
 .panel {
     max-width: 890px;
     margin-left: auto;
@@ -202,7 +203,7 @@ body {
 .content .panel span {
     margin: 0;
     font-size: 0.9rem;
-    font-weight: 400px;
+    font-weight: 400;
     color: #3a3a3a;
 }
 
@@ -224,12 +225,6 @@ body {
 
 .track-list {
     margin: 0;
-    padding: 0 0 0 19px;
-    list-style: none;
-}
-
-.track-list {
-    margin: 0;
     padding: 0 0 0 27px;
     list-style: none;
 }
@@ -237,15 +232,16 @@ body {
 .track-item {
     width: 668px;
     max-width: 100%;
-    height: 32px;
+    min-height: 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 0 18px 0 17px;
+    padding: 6px 18px 6px 17px;
     background: transparent;
     border: 1.5px solid #b5afaf;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .track-item + .track-item {
@@ -269,17 +265,55 @@ body {
     text-decoration: underline;
 }
 
+
+/* Learning Tools - prevent long filenames from overflowing */
+.tools-box {
+  min-width: 0;
+  padding: 16px 18px;
+  overflow: hidden;
+  background: #f4f0f0;
+  border: 2px solid #c9c3c3;
+  border-radius: 14px;
+}
+
+.tools-box ul {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tools-box li {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 7px 0;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid #fff;
+}
+
+.tools-box li:last-child {
+  border-bottom: 0;
+}
+
+.tools-box a {
+  display: inline-block;
+  max-width: 100%;
+  color: inherit;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}                          
+
 @media (max-width: 760px) {
-body.portal {
-    padding: 8px;
-}
+    body.portal {
+        padding: 8px;
+    }
 
-body.portal .app {
-    min-height: calc(100vh - 16px);
-}
+    body.portal .app {
+        min-height: calc(100vh - 16px);
+    }
 
-.track-item {
-        max-width: 100%;
+    .track-item {
+        width: 100%;
     }
 }
 
@@ -386,6 +420,30 @@ body.portal .app {
   padding-left: 16px;
 }
 
+/* Adjust Learning Tools content position */
+.tools-box {
+    height: 130px;
+    padding: 5px 14px 10px;
+    box-sizing: border-box;
+}
+
+.tools-box .tools {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.tools-box .tools li {
+    padding: 3px 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+#materialsEmpty {
+    font-size: 0.68rem;
+    color: #333333;
+    text-align: center;
+    margin: 0;
+}
 .empty-box,
 .tools-box {
   height: 130px;
@@ -395,16 +453,42 @@ body.portal .app {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.empty-box #activityList:empty {
+    display: none;
+}
+
+.empty-box #activitiesEmpty {
+    width: 100%;
+    text-align: center;
+    margin: 0;
 }
 
 .empty-box p {
   margin: 0;
   font-size: 0.68rem;
   color: #333333;
+  text-align: center;
 }
 
 .tools-box {
   padding: 10px 14px;
+}
+
+.tools-box #materialList {
+    margin-top: 0;
+}
+
+.tools-box #materialsEmpty {
+    width: 100%;
+    margin: 12px 0 0;
+    text-align: center;
+    font-size: 0.68rem;
+    color: #333333;
+    position: relative;
+    top: 14px;
 }
 
 .tools li {

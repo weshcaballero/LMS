@@ -98,97 +98,74 @@
 
         <main class="content dash">
 
+            
             <div class="dash-head">
                 <h1 id="userName">Student Name</h1>
-                <p>You're enrolled in the Programming (Java) track.</p>
+                <p id="enrolledCourses">Loading your enrolled courses...</p>
             </div>
+
 
             <div class="dash-grid">
 
                 <div class="dash-main">
 
-                    <section class="box learn">
-                        <h2 class="box-label">LEARN</h2>
-                        <ul class="line-list">
-                            <li><a href="#">Introduction to Java Programming</a></li>
-                            <li><a href="#">Variables and Data Types</a></li>
-                            <li><a href="#">Decision making Statements</a></li>
-                        </ul>
-                    </section>
+                <section class="box learn">
+                    <h2 class="box-label">LEARN</h2>
+
+                    <ul class="line-list" id="lessonList">
+                        <li>Loading your lessons...</li>
+                    </ul>
+
+                    <p id="lessonsEmpty" hidden>
+                        No lessons available for your enrolled courses.
+                    </p>
+                </section>
 
                     <div class="dash-two">
                         <section>
                             <h2 class="small-title">Activities</h2>
+
                             <div class="box empty-box">
-                                <p>You don't have activities today.</p>
+                                <ul class="activity-list" id="activityList">
+                                    <li>Loading activities...</li>
+                                </ul>
+
+                                <p id="activitiesEmpty" hidden>
+                                    You don't have any submitted activities yet.
+                                </p>
                             </div>
                         </section>
 
                         <section>
                             <h2 class="small-title">Learning Tools</h2>
+
                             <div class="box tools-box">
-                                <ul class="line-list tools">
-                                    <li>MySQL Windows11 x64</li>
-                                    <li><a href="https://leetcode.com" target="_blank" rel="noopener">https://Leetcode.com</a></li>
-                                    <li>Netbeans Windows10 x64</li>
+                                <ul class="line-list tools" id="materialList">
+                                    <li>Loading learning materials...</li>
                                 </ul>
+
+                                <p id="materialsEmpty" hidden>
+                                    No learning materials available for your enrolled courses.
+                                </p>
                             </div>
                         </section>
                     </div>
 
-                    <section class="assignments">
-                        <h2 class="small-title">My Assignments</h2>
-                        <ul class="assignment-list">
+                    
+                <section class="assignments">
+                    <h2 class="small-title">My Assignments</h2>
 
-                            <li class="assignment">
-                                <span class="assignment-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="2" width="18" height="20" rx="4" fill="#111"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
+                    <ul class="assignment-list" id="assignmentList">
+                        <li class="assignment" id="assignmentsLoading">
+                            Loading assignments...
+                        </li>
+                    </ul>
 
-                                <div class="assignment-text">
-                                    <strong>Romero Dela Cruz Vicente posted a new assignment: Loops and arrays</strong>
+                    <p id="assignmentsEmpty" hidden>
+                        No assignments available for your enrolled courses.
+                    </p>
+                </section>
 
-                                    <span class="date">Oct 16</span>
-                                </div>
-
-                                <button type="button" class="dots" aria-label="More options"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg></button>
-                            </li>
-
-                            <li class="assignment">
-                                <span class="assignment-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="2" width="18" height="20" rx="4" fill="#111"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
-
-                                <div class="assignment-text">
-                                    <strong>Romero Dela Cruz Vicente posted a new assignment: Loops and arrays</strong>
-
-                                    <span class="date">Oct 16</span>
-                                </div>
-
-                                <button type="button" class="dots" aria-label="More options"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg></button>
-                            </li>
-
-                            <li class="assignment">
-                                <span class="assignment-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="2" width="18" height="20" rx="4" fill="#111"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
-
-                                <div class="assignment-text">
-                                    <strong>Romero Dela Cruz Vicente posted a new assignment: Loops and arrays</strong>
-
-                                    <span class="date">Oct 16</span>
-                                </div>
-
-                                <button type="button" class="dots" aria-label="More options"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg></button>
-                            </li>
-
-                            <li class="assignment">
-                                <span class="assignment-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="2" width="18" height="20" rx="4" fill="#111"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
-
-                                <div class="assignment-text">
-                                    <strong>Romero Dela Cruz Vicente posted a new assignment: Loops and arrays</strong>
-
-                                    <span class="date">Oct 16</span>
-                                </div>
-
-                                <button type="button" class="dots" aria-label="More options"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg></button>
-                            </li>
-                        </ul>
-                    </section>
                 </div>
 
                 <aside class="dash-side">
@@ -219,5 +196,6 @@
     <script src="js/profile-dropdown.js"></script>
     <script src="js/user-info.js" defer></script>
     <script src="js/notification.js" defer></script>
+    <script src="js/dashboard.js" defer></script>
 </body>
 </html>

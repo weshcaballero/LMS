@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
         bell.setAttribute("aria-expanded", "false");
     }
 
-    // Notification bell
+    // nilagnat ngani...
     bell.addEventListener("click", function (event) {
         event.stopPropagation();
 

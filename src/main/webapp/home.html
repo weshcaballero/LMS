@@ -1,139 +1,216 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
+
     <title>DATTC | E-Learning System</title>
 </head>
+
 <body>
-    <div class="app">
-        <header class="topbar">
-            <a href="home.html" class="brand">
-                <img src="./images/Digitalarts.png" alt="Digital Arts Image">
-                <div class="brand-text">
-                    <span class="brand-name">Digital Arts Technology Training Center Inc.</span>
-                    <span class="brand-sub">E-Learning System</span>
+
+<div class="app">
+
+    <!-- HEADER -->
+    <header class="topbar">
+
+        <a href="home.html" class="brand">
+            <img src="./images/Digitalarts.png" alt="Digital Arts Image">
+
+            <div class="brand-text">
+                <span class="brand-name">
+                    Digital Arts Technology Training Center Inc.
+                </span>
+
+                <span class="brand-sub">
+                    E-Learning System
+                </span>
+            </div>
+        </a>
+
+        <!-- NAVIGATION -->
+        <nav class="topnav" aria-label="Main">
+            <a href="home.html">Home</a>
+            <a href="dashboard-student.html">Dashboard</a>
+            <a href="courses.html">My Courses</a>
+        </nav>
+
+        <div class="topbar-actions">
+
+            <!-- NOTIFICATIONS -->
+            <div class="notification-dropdown" id="notificationDropdown">
+
+                <button type="button"
+                        class="bell"
+                        id="notificationBell"
+                        aria-label="Notifications"
+                        aria-expanded="false"
+                        aria-controls="notificationMenu">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/>
+                    </svg>
+
+                    <span class="bell-dot" id="notificationDot"></span>
+
+                </button>
+
+                <div class="notification-menu" id="notificationMenu" hidden>
+
+                    <div class="notification-header">
+                        <strong>Notifications</strong>
+
+                        <button type="button" id="markAllRead">
+                            Mark all as read
+                        </button>
+                    </div>
+
+                    <div class="notification-list" id="notificationList">
+                        <p class="notification-empty">
+                            Loading notifications...
+                        </p>
+                    </div>
+
+                    <div class="notification-footer">
+                        <a href="notifications.html">
+                            View all notifications
+                        </a>
+                    </div>
+
                 </div>
-            </a>
 
-    <nav class="topnav" aria-label="Main">
-        <a href="home.html">Home</a>
-        <a href="dashboard-student.html">Dashboard</a>
-        <a href="courses.html">My Courses</a>
-    </nav>
+            </div>
 
-    <div class="topbar-actions">
-        <div class="notification-dropdown" id="notificationDropdown">
+            <!-- PROFILE -->
+            <div class="profile-dropdown" id="profileDropdown">
 
-    <button type="button"
-            class="bell"
-            id="notificationBell"
-            aria-label="Notifications"
-            aria-expanded="false"
-            aria-controls="notificationMenu">
+                <button type="button"
+                        class="avatar"
+                        id="userAvatar"
+                        aria-label="Open profile menu"
+                        aria-expanded="false">
+                    ST
+                </button>
 
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/>
-        </svg>
+                <div class="profile-menu" id="profileMenu">
 
-        <span class="bell-dot" id="notificationDot"></span>
-    </button>
+                    <div class="profile-menu-info">
+                        <strong id="dropdownUserName">
+                            Student Name
+                        </strong>
 
-    <div class="notification-menu" id="notificationMenu" hidden>
+                        <span id="dropdownUserEmail">
+                            student@email.com
+                        </span>
+                    </div>
 
-        <div class="notification-header">
-            <strong>Notifications</strong>
-            <button type="button" id="markAllRead">Mark all as read</button>
+                    <div class="profile-menu-divider"></div>
+
+                    <a href="profile.html">
+                        <span>My Profile</span>
+                    </a>
+
+                    <a href="LogoutServlet" class="dropdown-logout">
+                        <span>Log out</span>
+                    </a>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="notification-list" id="notificationList">
-            <p class="notification-empty">Loading notifications...</p>
-        </div>
+    </header>
 
-        <div class="notification-footer">
-            <a href="notifications.html">View all notifications</a>
-        </div>
 
-    </div>
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- GREETING -->
+        <h1 class="greeting">
+            Hi, <span id="userName">Student</span>!
+        </h1>
+
+
+        <!-- DUE SOON -->
+        <section class="panel">
+
+            <div class="panel-head">
+                <span>Due Soon</span>
+
+                <a href="courses.html" class="pill">
+                    See Track
+                </a>
+            </div>
+
+            <ul class="home-due-list" id="dueSoonList">
+                <li>Loading upcoming assignments...</li>
+            </ul>
+
+            <p class="panel-empty" id="dueSoonEmpty" hidden>
+                You don't have any work due in the next 7 days.
+            </p>
+
+        </section>
+
+
+        <!-- CLASS LEARNING TOOLS -->
+        <section class="panel">
+
+            <div class="panel-head">
+                <span>Class Learning tools</span>
+            </div>
+
+            <ul class="home-material-list" id="homeMaterialList">
+                <li>Loading class learning tools...</li>
+            </ul>
+
+            <p class="panel-empty" id="homeMaterialsEmpty" hidden>
+                You don't have any assigned class learning tools.
+            </p>
+
+        </section>
+
+
+        <!-- ENROLLED TRACK -->
+        <section class="panel tall" style="min-height: 265px;">
+
+            <div class="panel-head">
+                <span>Enrolled Track</span>
+
+                <a href="courses.html">
+                    + Add class
+                </a>
+            </div>
+
+            <ul class="track-list" id="enrolledTrackList">
+                <li>Loading enrolled courses...</li>
+            </ul>
+
+            <p class="panel-empty" id="enrolledTrackEmpty" hidden>
+                You are not enrolled in any courses yet.
+            </p>
+
+        </section>
+
+    </main>
 
 </div>
 
-        <div class="profile-dropdown" id="profileDropdown">
-            <button type="button"
-                    class="avatar"
-                    id="userAvatar"
-                    aria-label="Open profile menu"
-                    aria-expanded="false">
-                ST
-            </button>
 
-            <div class="profile-menu" id="profileMenu">
-                <div class="profile-menu-info">
-                    <strong id="dropdownUserName">Student Name</strong>
-                    <span id="dropdownUserEmail">student@email.com</span>
-                </div>
+<!-- JAVASCRIPT -->
+<script src="js/portal.js" defer></script>
+<script src="js/user-info.js" defer></script>
+<script src="js/profile-dropdown.js" defer></script>
+<script src="js/notification.js" defer></script>
+<script src="js/home.js" defer></script>
 
-                <div class="profile-menu-divider"></div>
-
-                <a href="profile.html">
-                    <span>My Profile</span>
-                </a>
-
-                <a href="LogoutServlet" class="dropdown-logout">
-                    <span>Log out</span>
-                </a>
-            </div>
-        </div>
-    </div>
-</header>
-
-        <main class="content">
-            <h1 class="greeting">
-                Hi, <span id="userName">Student</span>!
-            </h1>
-
-            <section class="panel">
-                <div class="panel-head">
-                    <span>Due Soon</span>
-                    <a href="courses.html" class="pill">
-                        See Track
-                    </a>
-                </div>
-
-                <p class="panel-empty">
-                    You don't have any work due in the next 7 days.
-                </p>
-            </section>
-
-            <section class="panel">
-                <div class="panel-head">
-                    <span>Class Learning tools</span>
-                </div>
-                <p class="panel-empty">
-                    You don't have any assigned class learning tools.
-                </p>
-            </section>
-
-            <section class="panel tall " style="min-height: 265px;">
-                <div class="panel-head">
-                    <span>Enrolled Track</span>
-                    <a href="courses.html">+ Add class</a>
-                </div>
-
-                <ul class="track-list">
-                    <li class="track-item">
-                        <p>Programming (Java)</p>
-                        <a href="courses.html">View to-do</a>
-                    </li>
-                </ul>
-            </section>
-        </main>
-    </div>
-
-    <script src="js/portal.js" defer></script>
-    <script src="js/user-info.js" defer></script>
-    <script src="js/profile-dropdown.js"></script>
-    <script src="js/notification.js" defer></script>
 </body>
 </html>
