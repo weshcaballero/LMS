@@ -398,8 +398,78 @@ body {
   padding: 14px 15px 14px 18px;
 }
 
-.learn .line-list {
-  padding-left: 24px;
+/* Remove lesson list bullets */
+#lessonList {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+/* Remove lesson bullets */
+#lessonList,
+.course-lesson-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+/* Lesson links */
+.lesson-link-item {
+    list-style: none;
+    margin: 8px 0;
+}
+
+.lesson-link-item a {
+    display: block;
+    padding: 7px 10px;
+    color: #333333;
+    font-size: 0.82rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.2s ease;
+}
+
+.lesson-link-item a:hover {
+    background: #e8e3e3;
+    text-decoration: underline;
+}
+
+#lessonList li {
+    list-style: none;
+}
+
+/* Make lesson titles clickable */
+#lessonList summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 7px 10px;
+    font-size: 0.85rem;
+    color: #333333;
+    border-bottom: 1px solid #dedada;
+    transition: background 0.2s ease;
+}
+
+/* Hide default browser triangle */
+#lessonList summary::-webkit-details-marker {
+    display: none;
+}
+
+#lessonList summary::marker {
+    content: "";
+}
+
+#lessonList summary:hover {
+    background: #e8e3e3;
+    border-radius: 4px;
+}
+
+#lessonsEmpty {
+    width: 100%;
+    margin: 12px 0 0;
+    text-align: center;
+    font-size: 0.68rem;
+    color: #333333;
+    position: relative;
+    top: 9px;
 }
 
 /* ---------- Activities and Learning Tools ---------- */

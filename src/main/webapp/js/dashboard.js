@@ -1,6 +1,8 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    console.log("DASHBOARD JS STARTED");
+
     // DASHBOARD ELEMENTS
     const assignmentList = document.getElementById("assignmentList");
     const assignmentsLoading = document.getElementById("assignmentsLoading");
@@ -25,7 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return "No date available";
         }
 
-        const date = new Date(dateValue.replace(" ", "T"));
+        const date = new Date(
+            String(dateValue).replace(" ", "T")
+        );
 
         if (isNaN(date.getTime())) {
             return dateValue;
@@ -39,49 +43,59 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // CREATE ASSIGNMENT ELEMENT
-    function createAssignmentElement(assignment) {
+    // FETCH DATA
+    async function fetchData(servletName) {
 
-        const item = document.createElement("li");
-        item.className = "assignment";
+        console.log("Requesting:", servletName);
 
-        const icon = document.createElement("span");
-        icon.className = "assignment-icon";
+        const response = await fetch(servletName, {
+            method: "GET",
+            credentials: "same-origin",
+            headers: {
+                "Accept": "application/json"
+            },
+            cache: "no-store"
+        });
 
-        icon.innerHTML = `
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="3" y="2" width="18" height="20"
-                    rx="4" fill="#111"/>
-                <path d="M8 8h8M8 12h8M8 16h5"
-                    stroke="#fff"
-                    stroke-width="2"
-                    stroke-linecap="round"/>
-            </svg>
-        `;
+        if (!response.ok) {
+            throw new Error(
+                servletName + " returned HTTP " + response.status
+            );
+        }
 
-        const textContainer = document.createElement("div");
-        textContainer.className = "assignment-text";
+        const data = await response.json();
 
-        const title = document.createElement("strong");
-        title.textContent =
-            assignment.assignmentTitle || "Untitled Assignment";
+        console.log(servletName + " response:", data);
 
-        const course = document.createElement("span");
-        course.textContent =
-            `${assignment.courseCode || ""} - ${assignment.courseTitle || ""}`;
+        return data;
+    }
 
-        const date = document.createElement("span");
-        date.className = "date";
-        date.textContent = `Due: ${formatDate(assignment.dueDate)}`;
 
-        textContainer.appendChild(title);
-        textContainer.appendChild(course);
-        textContainer.appendChild(date);
+    // GET EXTERNAL LESSON LINK
+    function getLessonUrl(lesson) {
 
-        item.appendChild(icon);
-        item.appendChild(textContainer);
+        const title = (lesson.lessonTitle || "").toLowerCase();
 
-        return item;
+        if (title.includes("html")) {
+            return "https://www.w3schools.com/html/";
+        }
+
+        if (title.includes("css")) {
+            return "https://www.w3schools.com/css/";
+        }
+
+        if (
+            title.includes("javascript") ||
+            title.includes("js")
+        ) {
+            return "https://www.w3schools.com/js/";
+        }
+
+        if (title.includes("java")) {
+            return "https://www.w3schools.com/java/";
+        }
+
+        return "https://www.w3schools.com/";
     }
 
 
@@ -89,18 +103,21 @@ document.addEventListener("DOMContentLoaded", function () {
     async function loadAssignments() {
 
         if (!assignmentList) {
+            console.warn("assignmentList element not found.");
             return;
         }
 
         try {
 
-            const response = await fetch("AssignmentServlet");
-
-            if (!response.ok) {
-                throw new Error("Unable to load assignments.");
+            if (assignmentsEmpty) {
+                assignmentsEmpty.hidden = true;
             }
 
-            const assignments = await response.json();
+            if (assignmentsLoading) {
+                assignmentsLoading.textContent = "Loading assignments...";
+            }
+
+            const assignments = await fetchData("AssignmentServlet");
 
             assignmentList.innerHTML = "";
 
@@ -113,24 +130,72 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+            assignments.forEach(function (assignment) {
+
+                const item = document.createElement("li");
+                item.className = "assignment";
+
+                const icon = document.createElement("span");
+                icon.className = "assignment-icon";
+
+                icon.innerHTML = `
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3" y="2" width="18" height="20"
+                            rx="4" fill="#111"/>
+                        <path d="M8 8h8M8 12h8M8 16h5"
+                            stroke="#fff"
+                            stroke-width="2"
+                            stroke-linecap="round"/>
+                    </svg>
+                `;
+
+                const textContainer = document.createElement("div");
+                textContainer.className = "assignment-text";
+
+                const title = document.createElement("strong");
+
+                title.textContent =
+                    assignment.assignmentTitle || "Untitled Assignment";
+
+                const course = document.createElement("span");
+
+                course.textContent =
+                    `${assignment.courseCode || ""} - ${assignment.courseTitle || ""}`;
+
+                const date = document.createElement("span");
+                date.className = "date";
+
+                date.textContent =
+                    "Due: " + formatDate(assignment.dueDate);
+
+                textContainer.appendChild(title);
+                textContainer.appendChild(course);
+                textContainer.appendChild(date);
+
+                item.appendChild(icon);
+                item.appendChild(textContainer);
+
+                assignmentList.appendChild(item);
+            });
+
             if (assignmentsEmpty) {
                 assignmentsEmpty.hidden = true;
             }
-
-            assignments.forEach(function (assignment) {
-                assignmentList.appendChild(
-                    createAssignmentElement(assignment)
-                );
-            });
 
         } catch (error) {
 
             console.error("Assignment loading error:", error);
 
-            if (assignmentsLoading) {
-                assignmentsLoading.textContent =
-                    "Unable to load assignments. Please try again.";
-            }
+            assignmentList.innerHTML = "";
+
+            const errorItem = document.createElement("li");
+
+            errorItem.className = "assignment";
+
+            errorItem.textContent =
+                "Unable to load assignments. Please try again.";
+
+            assignmentList.appendChild(errorItem);
         }
     }
 
@@ -139,21 +204,25 @@ document.addEventListener("DOMContentLoaded", function () {
     async function loadEnrolledCourses() {
 
         if (!enrolledCoursesElement) {
+            console.warn("enrolledCourses element not found.");
             return;
         }
 
         try {
 
-            const response = await fetch("MyCoursesServlet");
+            enrolledCoursesElement.textContent =
+                "Loading your enrolled courses...";
 
-            if (!response.ok) {
-                throw new Error("Unable to load enrolled courses.");
+            const courses = await fetchData("MyCoursesServlet");
+
+            if (!Array.isArray(courses)) {
+                throw new Error("Invalid course response.");
             }
 
-            const courses = await response.json();
-
             const activeCourses = courses.filter(function (course) {
-                return course.status === "active";
+
+                return String(course.status).toLowerCase() === "active";
+
             });
 
             if (activeCourses.length === 0) {
@@ -165,7 +234,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const courseNames = activeCourses.map(function (course) {
+
                 return `${course.courseCode} - ${course.courseTitle}`;
+
             });
 
             enrolledCoursesElement.textContent =
@@ -185,18 +256,17 @@ document.addEventListener("DOMContentLoaded", function () {
     async function loadLessons() {
 
         if (!lessonList) {
+            console.warn("lessonList element not found.");
             return;
         }
 
         try {
 
-            const response = await fetch("LessonServlet");
-
-            if (!response.ok) {
-                throw new Error("Unable to load lessons.");
+            if (lessonsEmpty) {
+                lessonsEmpty.hidden = true;
             }
 
-            const lessons = await response.json();
+            const lessons = await fetchData("LessonServlet");
 
             lessonList.innerHTML = "";
 
@@ -207,10 +277,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 return;
-            }
-
-            if (lessonsEmpty) {
-                lessonsEmpty.hidden = true;
             }
 
             const groupedLessons = new Map();
@@ -244,33 +310,38 @@ document.addEventListener("DOMContentLoaded", function () {
                 courseItem.appendChild(courseHeading);
 
                 const courseLessonList = document.createElement("ul");
+
                 courseLessonList.className = "course-lesson-list";
 
                 course.lessons.forEach(function (lesson) {
 
                     const lessonItem = document.createElement("li");
 
-                    const details = document.createElement("details");
-                    details.className = "dashboard-lesson";
+                    lessonItem.className = "lesson-link-item";
 
-                    const summary = document.createElement("summary");
-                    summary.textContent = lesson.lessonTitle;
+                    const lessonLink = document.createElement("a");
 
-                    const content = document.createElement("p");
+                    lessonLink.href = getLessonUrl(lesson);
 
-                    content.textContent =
-                        lesson.lessonContent || "No lesson content available.";
+                    lessonLink.textContent =
+                        lesson.lessonTitle || "Untitled Lesson";
 
-                    details.appendChild(summary);
-                    details.appendChild(content);
+                    lessonLink.target = "_blank";
+                    lessonLink.rel = "noopener noreferrer";
 
-                    lessonItem.appendChild(details);
+                    lessonItem.appendChild(lessonLink);
+
                     courseLessonList.appendChild(lessonItem);
                 });
 
                 courseItem.appendChild(courseLessonList);
+
                 lessonList.appendChild(courseItem);
             });
+
+            if (lessonsEmpty) {
+                lessonsEmpty.hidden = true;
+            }
 
         } catch (error) {
 
@@ -293,9 +364,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const item = document.createElement("li");
 
-        const materialTitle = document.createElement("strong");
+        item.className = "home-material-item";
 
-        materialTitle.textContent =
+        const title = document.createElement("strong");
+
+        title.textContent =
             material.materialTitle || "Untitled Material";
 
         const course = document.createElement("span");
@@ -303,14 +376,17 @@ document.addEventListener("DOMContentLoaded", function () {
         course.textContent =
             `${material.courseCode || ""} - ${material.courseTitle || ""}`;
 
-        const description = document.createElement("p");
-
-        description.textContent =
-            material.description || "No description available.";
-
-        item.appendChild(materialTitle);
+        item.appendChild(title);
         item.appendChild(course);
-        item.appendChild(description);
+
+        if (material.description) {
+
+            const description = document.createElement("p");
+
+            description.textContent = material.description;
+
+            item.appendChild(description);
+        }
 
         if (material.filePath && material.filePath.trim() !== "") {
 
@@ -324,6 +400,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const fileLink = document.createElement("a");
 
                 fileLink.href = filePath;
+
                 fileLink.textContent =
                     material.fileName || "Open learning material";
 
@@ -350,18 +427,17 @@ document.addEventListener("DOMContentLoaded", function () {
     async function loadMaterials() {
 
         if (!materialList) {
+            console.warn("materialList element not found.");
             return;
         }
 
         try {
 
-            const response = await fetch("MaterialServlet");
-
-            if (!response.ok) {
-                throw new Error("Unable to load learning materials.");
+            if (materialsEmpty) {
+                materialsEmpty.hidden = true;
             }
 
-            const materials = await response.json();
+            const materials = await fetchData("MaterialServlet");
 
             materialList.innerHTML = "";
 
@@ -374,54 +450,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+            materials.forEach(function (material) {
+
+                materialList.appendChild(
+                    createMaterialElement(material)
+                );
+            });
+
             if (materialsEmpty) {
                 materialsEmpty.hidden = true;
             }
-
-            const groupedMaterials = new Map();
-
-            materials.forEach(function (material) {
-
-                const courseId = material.courseId;
-
-                if (!groupedMaterials.has(courseId)) {
-
-                    groupedMaterials.set(courseId, {
-                        courseCode: material.courseCode,
-                        courseTitle: material.courseTitle,
-                        materials: []
-                    });
-                }
-
-                groupedMaterials.get(courseId).materials.push(material);
-            });
-
-            groupedMaterials.forEach(function (course) {
-
-                const courseItem = document.createElement("li");
-                courseItem.className = "material-course-group";
-
-                const courseHeading = document.createElement("strong");
-
-                courseHeading.textContent =
-                    `${course.courseCode} - ${course.courseTitle}`;
-
-                courseItem.appendChild(courseHeading);
-
-                const courseMaterialList = document.createElement("ul");
-
-                courseMaterialList.className = "course-material-list";
-
-                course.materials.forEach(function (material) {
-
-                    courseMaterialList.appendChild(
-                        createMaterialElement(material)
-                    );
-                });
-
-                courseItem.appendChild(courseMaterialList);
-                materialList.appendChild(courseItem);
-            });
 
         } catch (error) {
 
@@ -443,6 +481,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function createActivityElement(activity) {
 
         const item = document.createElement("li");
+
         item.className = "dashboard-activity";
 
         const title = document.createElement("strong");
@@ -458,9 +497,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const submittedDate = document.createElement("span");
 
         submittedDate.textContent =
-            `Submitted: ${formatDate(activity.submittedAt)}`;
+            "Submitted: " + formatDate(activity.submittedAt);
 
         const status = document.createElement("span");
+
         status.className = "activity-status";
 
         const statusText = activity.status || "pending";
@@ -488,7 +528,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const feedback = document.createElement("p");
 
-            feedback.textContent = `Teacher feedback: ${activity.feedback}`;
+            feedback.textContent =
+                "Teacher feedback: " + activity.feedback;
 
             item.appendChild(feedback);
         }
@@ -501,18 +542,17 @@ document.addEventListener("DOMContentLoaded", function () {
     async function loadActivities() {
 
         if (!activityList) {
+            console.warn("activityList element not found.");
             return;
         }
 
         try {
 
-            const response = await fetch("ActivityServlet");
-
-            if (!response.ok) {
-                throw new Error("Unable to load activities.");
+            if (activitiesEmpty) {
+                activitiesEmpty.hidden = true;
             }
 
-            const activities = await response.json();
+            const activities = await fetchData("ActivityServlet");
 
             activityList.innerHTML = "";
 
@@ -525,16 +565,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            if (activitiesEmpty) {
-                activitiesEmpty.hidden = true;
-            }
-
             activities.forEach(function (activity) {
 
                 activityList.appendChild(
                     createActivityElement(activity)
                 );
             });
+
+            if (activitiesEmpty) {
+                activitiesEmpty.hidden = true;
+            }
 
         } catch (error) {
 
@@ -553,10 +593,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // INITIALIZE DASHBOARD
+    console.log("Starting dashboard requests...");
+
     loadAssignments();
     loadEnrolledCourses();
     loadLessons();
     loadMaterials();
     loadActivities();
+
+    console.log("Dashboard initialization finished.");
 
 });
